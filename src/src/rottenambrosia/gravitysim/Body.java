@@ -1,3 +1,10 @@
+/**
+ * I have to tell you just how I feel
+ * I won't share you with another boy
+ * I know my mind is made up
+ * So put away your makeup
+ */
+
 package rottenambrosia.gravitysim;
 
 import javax.swing.*;

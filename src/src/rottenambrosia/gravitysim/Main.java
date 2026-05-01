@@ -1,3 +1,10 @@
+/**
+ * Take a listen to your spirit
+ * It's cryin' out loud
+ * Trying to believe
+ * Oh, you say you love me, but you don't know
+ */
+
 package rottenambrosia.gravitysim;
 
 import javax.swing.JFrame;

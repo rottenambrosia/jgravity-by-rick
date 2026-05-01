@@ -1,5 +1,13 @@
+/**
+ * They tell you, "Read this, eat this, don't look around
+ * Just peep this, preach this, teach us, Jesus"
+ * Okay, look up now, they done stole yo' streetness
+ * After all of that, you received this
+ */
+
 package rottenambrosia.gravitysim;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -10,20 +18,21 @@ import static rottenambrosia.gravitysim.Constants.*;
 
 public class SimulationPanel extends JPanel implements ActionListener {
 
-    List<Body> bodyList = new ArrayList<>();
+    static List<Body> bodyList = new ArrayList<>();
     public double spawnX, spawnY;
     public double mouseX, mouseY;
 
     Timer timer;
 
     public SimulationPanel() {
-        bodyList.add(new Body(100, 250, 0.07,  0.02, 4e14, 15, Color.CYAN));
-        bodyList.add(new Body(150, 450, 0.03,  0.07, 3e14, 15, Color.YELLOW));
-        bodyList.add(new Body(550, 400, 0.03,  -0.05, 2e14, 15, Color.ORANGE));
+//        bodyList.add(new Body(100, 250, 0.07,  0.02, 4e14, 15, Color.CYAN));
+//        bodyList.add(new Body(150, 450, 0.03,  0.07, 3e14, 15, Color.YELLOW));
+//        bodyList.add(new Body(550, 400, 0.03,  -0.05, 2e14, 15, Color.ORANGE));
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.BLACK);
         timer = new Timer(16, this);
         timer.start();
+        addMouseListener(new MouseInteraction(bodyList));
     }
 
 
@@ -31,6 +40,7 @@ public class SimulationPanel extends JPanel implements ActionListener {
      /**
       * <h1>Newton's formula for Gravitation</h1>
      * @param bodies: List of Bodies
+     * @returns void
      * @description:
      * Computes the mutual gravitational forces between two <code>Body</code> objects and updates their velocities.
      * <p>
@@ -131,10 +141,6 @@ public class SimulationPanel extends JPanel implements ActionListener {
 //            body1.v_y*=-1;
 //        }
         repaint();
-    }
-
-    public void userInteraction () {
-
     }
 
     @Override
