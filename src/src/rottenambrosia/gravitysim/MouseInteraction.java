@@ -64,6 +64,7 @@ public class MouseInteraction implements MouseListener {
                     colorArray[new Random().nextInt(colorArray.length)]
             );
             bodyList.add(body);
+            System.out.println("Body spawned.");
         } else {
             System.out.println("That does nothing for me.");
         }

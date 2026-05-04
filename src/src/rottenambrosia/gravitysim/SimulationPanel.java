@@ -19,8 +19,7 @@ import static rottenambrosia.gravitysim.Constants.*;
 public class SimulationPanel extends JPanel implements ActionListener {
 
     static List<Body> bodyList = new ArrayList<>();
-    public double spawnX, spawnY;
-    public double mouseX, mouseY;
+    SpacetimeGrid spacetimeGrid = new SpacetimeGrid();
 
     Timer timer;
 
@@ -146,6 +145,7 @@ public class SimulationPanel extends JPanel implements ActionListener {
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
+        spacetimeGrid.draw(g, getWidth(), getHeight(), bodyList);
         for (Body body : bodyList) {
             body.draw(g);
         }
