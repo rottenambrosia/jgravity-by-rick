@@ -7,26 +7,41 @@
 
 package rottenambrosia.gravitysim;
 
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import static rottenambrosia.gravitysim.Constants.*;
 
 public class SimulationPanel extends JPanel implements ActionListener {
 
     static List<Body> bodyList = new ArrayList<>();
     SpacetimeGrid spacetimeGrid = new SpacetimeGrid();
-
+    private long frameCount = 0;
+    private boolean paused = false;
     Timer timer;
+
 
     public SimulationPanel() {
 //        bodyList.add(new Body(100, 250, 0.07,  0.02, 4e14, 15, Color.CYAN));
 //        bodyList.add(new Body(150, 450, 0.03,  0.07, 3e14, 15, Color.YELLOW));
 //        bodyList.add(new Body(550, 400, 0.03,  -0.05, 2e14, 15, Color.ORANGE));
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_SPACE -> paused = !paused;
+                    case KeyEvent.VK_C -> bodyList.clear();
+                    case KeyEvent.VK_R -> resetScene();
+                }
+
+            }
+        });
         setPreferredSize(new Dimension(800, 600));
         setBackground(Color.BLACK);
         timer = new Timer(16, this);
@@ -34,14 +49,21 @@ public class SimulationPanel extends JPanel implements ActionListener {
         addMouseListener(new MouseInteraction(bodyList));
     }
 
+    /**
+     * Click "r" and reset the scene.
+     */
+    private void resetScene() {
+        bodyList.clear();
+        frameCount = 0;
+        bodyList.add(new Body(250, 300, 0,  1.5, 5e13, 15, Color.CYAN));
+        bodyList.add(new Body(550, 300, 0, -1.5, 5e13, 15, Color.ORANGE));
+    }
 
-
-     /**
-      * <h1>Newton's formula for Gravitation</h1>
+    /**
+     * <h1>Newton's formula for Gravitation</h1>
+     *
      * @param bodies: List of Bodies
-     * @returns void
-     * @description:
-     * Computes the mutual gravitational forces between two <code>Body</code> objects and updates their velocities.
+     * @description: Computes the mutual gravitational forces between two <code>Body</code> objects and updates their velocities.
      * <p>
      * The method calculates the force using Newton's law of universal gravitation:
      * <pre>F = G * a.mass * b.mass / (distance * SCALE)²</pre>
@@ -60,9 +82,9 @@ public class SimulationPanel extends JPanel implements ActionListener {
      * </ul>
      * </p>
      */
-    public void applyGravity (List<Body> bodies) {
-        for (int i = 0; i < bodies.size(); i++){
-            for (int j = i+1; j < bodies.size(); j++){
+    public void applyGravity(List<Body> bodies) {
+        for (int i = 0; i < bodies.size(); i++) {
+            for (int j = i + 1; j < bodies.size(); j++) {
                 Body A = bodies.get(i);
                 Body B = bodies.get(j);
                 double dx = B.x - A.x;
@@ -79,8 +101,8 @@ public class SimulationPanel extends JPanel implements ActionListener {
 
                 double F = (G * A.mass * B.mass) / Math.pow(distance, 2);
                 // Standard notation suggests : aAB -> acceleration of A due to force applied by B
-                double accn_A_B_x = r_x_unit * F / A.mass;
-                double accn_A_B_y = r_y_unit * F / A.mass;
+                double accn_A_B_x = (r_x_unit * F / A.mass);
+                double accn_A_B_y = (r_y_unit * F / A.mass);
                 //updating A's velocities due to forces from B
                 A.v_x += accn_A_B_x;
                 A.v_y += accn_A_B_y;
@@ -96,30 +118,31 @@ public class SimulationPanel extends JPanel implements ActionListener {
 
     /**
      * <h1>Collision Checker</h1>
+     *
      * @param bodies List of objects of class <code>Body</code>
-     * <br>
-     * Checks for collision using mathematical inferences
+     *               <br>
+     *               Checks for collision using mathematical inferences
      */
-    public void checkCollision (List<Body> bodies) {
+    public void checkCollision(List<Body> bodies) {
         List<Body> toRemove = new ArrayList<Body>();
         List<Body> toAdd = new ArrayList<Body>();
-        if (bodies.size()>=2){
+        if (bodies.size() >= 2) {
             for (int i = 0; i < bodies.size(); i++) {
                 for (int j = i + 1; j < bodies.size(); j++) {
                     Body A = bodies.get(i);
                     Body B = bodies.get(j);
-                    double distance = Math.sqrt(Math.pow(A.x-B.x, 2) + Math.pow(A.y-B.y, 2));
-                    if (distance<=A.radius+B.radius) {
+                    double distance = Math.sqrt(Math.pow(A.x - B.x, 2) + Math.pow(A.y - B.y, 2));
+                    if (distance <= A.radius + B.radius) {
                         System.out.println("Collision hath occured.");
                         double combinedMass = A.mass + B.mass;
-                        double v_new_x = (A.mass * A.v_x + B.mass * B.v_x)/combinedMass;
-                        double v_new_y = (A.mass * A.v_y + B.mass * B.v_y)/combinedMass;
+                        double v_new_x = (A.mass * A.v_x + B.mass * B.v_x) / combinedMass;
+                        double v_new_y = (A.mass * A.v_y + B.mass * B.v_y) / combinedMass;
                         double combinedRadius = Math.cbrt(Math.pow(A.radius, 3) + Math.pow(B.radius, 3));
                         Body combinedBody = new Body(A.x, A.y, v_new_x, v_new_y, combinedMass, combinedRadius, Color.PINK);
                         toAdd.add(combinedBody);
                         toRemove.add(A);
                         toRemove.add(B);
-                        System.out.println(combinedBody.v_x+ " " + combinedBody.v_y);
+                        System.out.println(combinedBody.v_x + " " + combinedBody.v_y);
 
                     }
                 }
@@ -128,26 +151,36 @@ public class SimulationPanel extends JPanel implements ActionListener {
             bodyList.addAll(toAdd);
         }
     }
+
     @Override
-    public void actionPerformed (ActionEvent e) { //gets called every 60th of a second
-        applyGravity(bodyList);
-        bodyList.forEach(Body::update);
-        checkCollision(bodyList);
-//        if (body1.x + body1.radius >= getWidth() || body1.x + body1.radius <=0 ){
-//            body1.v_x*=-1;
-//        }
-//        if (body1.y + body1.radius >= getHeight() || body1.y + body1.radius <= 0) {
-//            body1.v_y*=-1;
-//        }
+    public void actionPerformed(ActionEvent e) { //gets called every 60th of a second
+        if (!paused) {
+            frameCount++;
+            applyGravity(bodyList);
+            bodyList.forEach(Body::update);
+            checkCollision(bodyList);
+        }
         repaint();
     }
 
+    public void drawHUD(Graphics2D g2) {
+        g2.setColor(new Color(57, 97, 128, 206));
+        g2.fillRect(10, 10, 220, 70);
+        g2.setColor(Color.WHITE);
+        int timeElapsed = (int)(frameCount / 60);
+        g2.drawString("Bodies : " + bodyList.size(), 20, 35);
+        g2.drawString("Time   : " + timeElapsed + "s", 20, 55);
+        g2.drawString(paused ? "[PAUSED]" : "[RUNNING]", 20, 75);
+    }
+
     @Override
-    public void paintComponent (Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         spacetimeGrid.draw(g, getWidth(), getHeight(), bodyList);
         for (Body body : bodyList) {
             body.draw(g);
         }
+        drawHUD((Graphics2D) g);
     }
 }
+
