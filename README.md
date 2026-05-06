@@ -108,22 +108,6 @@ Or open in IntelliJ IDEA and run `Main.java` directly.
 
 ***
 
-## 🛣️ Roadmap
-
-- [x] N-body gravity simulation
-- [x] Inelastic collisions with momentum conservation
-- [x] Spacetime grid (Flamm's paraboloid)
-- [x] Motion trails
-- [x] Live HUD
-- [x] Mouse spawn with drag preview
-- [x] Solar system opening scene
-- [x] Keyboard controls + help overlay
-- [ ] 3D rendering with LWJGL + OpenGL (Lesson 11)
-- [ ] GLSL shaders for grid and body rendering
-- [ ] Camera controls (orbit, zoom)
-
-***
-
 ## 📜 License
 
 MIT
