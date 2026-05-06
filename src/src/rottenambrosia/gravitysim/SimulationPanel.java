@@ -12,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
-
 import static rottenambrosia.gravitysim.Constants.*;
 
 public class SimulationPanel extends JPanel implements ActionListener {
-
     static List<Body> bodyList = new ArrayList<>();
     SpacetimeGrid spacetimeGrid = new SpacetimeGrid();
     MouseInteraction mouseInteraction = new MouseInteraction(bodyList);
@@ -124,8 +122,8 @@ public class SimulationPanel extends JPanel implements ActionListener {
 
                 double r_x_unit = dx / distance;
                 double r_y_unit = dy / distance;
-
-                double F = (G * A.mass * B.mass) / Math.pow(distance, 2);
+                double epsilon = 1e-7;
+                double F = (G * A.mass * B.mass) / (Math.pow(distance, 2) + Math.pow(epsilon, 2));
                 // Standard notation suggests : aAB -> acceleration of A due to force applied by B
                 double accn_A_B_x = (r_x_unit * F / A.mass);
                 double accn_A_B_y = (r_y_unit * F / A.mass);

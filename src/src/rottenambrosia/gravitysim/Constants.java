@@ -12,7 +12,7 @@ public class Constants {
     public boolean spawning = false;
     public static final double SPAWN_MASS = 3e12;
     public static final double SPAWN_RADIUS = 10;
-    public static final double VELOCITY_SCALE = 0.25;
+    public static final double VELOCITY_SCALE = 0.10;
     public static final double C_LIGHT   = 299792458.0;  // speed of light m/s
     public static final double SPACE_SCALE = 100.0;     // 1 pixel = 1000 metres
     public static final double WARP_SCALE  = 12e5;       // metres of warp → pixels
