@@ -152,7 +152,7 @@ public class SimulationPanel extends JPanel implements ActionListener {
      *               If two bodies touch, they merge their masses and the combined mass and velocity are given by:
      *               <pre>M = m1 + m2 (Law of conservation of mass)</pre>
      *               <pre>v = (m1u1 + m2u2)/(m1+m2) (Law of conservation of linear momentum)</pre>
-     *               Hence, the new body is added to {@code bodyList} and the older bodies are discarded.
+     *               Hence, the new body is added to {@code bodyList} and the older bodies are removed from the list.
      */
     public void checkCollision(List<Body> bodies) {
         List<Body> toRemove = new ArrayList<Body>();

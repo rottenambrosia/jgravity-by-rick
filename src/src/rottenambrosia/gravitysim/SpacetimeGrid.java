@@ -59,6 +59,7 @@ public class SpacetimeGrid {
      * <li>Colour: new Color(30, 120, 255, 80) — dim blue, slightly transparent</li>
      */
 //    @Override
+
     public void draw(Graphics g, int panelWidth, int panelHeight, List<Body> bodies) {
         Graphics2D g2 = (Graphics2D) g;
         double stepX = panelWidth / (double) GRID_COLS;
