@@ -1,4 +1,4 @@
-# 🌌 jGravity — N-Body Gravity Simulator in Java
+# 🌌 jGravity — N-Body Gravity Simulator in Java (2-D only for now, 3-D to come soon)
 
 A real-time 2D gravity simulator built with Java Swing, featuring N-body physics, inelastic collisions, a spacetime curvature grid, motion trails, and a fully interactive UI.
 
