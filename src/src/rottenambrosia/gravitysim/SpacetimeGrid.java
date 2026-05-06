@@ -30,6 +30,7 @@ public class SpacetimeGrid {
      * <br>
      * @return  total * WARP_SCALE to convert to pixels.
      */
+
     public double computeWarp(double px, double py, List<Body> bodies) {
         double total = 0.0;
         for (Body body : bodies) {
