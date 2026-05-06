@@ -10,14 +10,16 @@ package rottenambrosia.gravitysim;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.Random;
 import java.util.List;
 import static rottenambrosia.gravitysim.Constants.*;
 
 
-public class MouseInteraction implements MouseListener {
+public class MouseInteraction implements MouseListener, MouseMotionListener {
 
-    double pressX, pressY, releaseX, releaseY, d_x, d_y, v_x, v_y;
+    double pressX, pressY, releaseX, releaseY, d_x, d_y, v_x, v_y, currentX, currentY;
+    boolean dragging = false;
     List<Body> bodyList;
     public MouseInteraction(List<Body> bodyList) {
         this.bodyList = bodyList;
@@ -38,7 +40,7 @@ public class MouseInteraction implements MouseListener {
             Body closest = null;
             double minDist = Double.MAX_VALUE;
             for (Body body : bodyList) {
-                double distance = Math.sqrt(Math.pow(body.x-pressX, 2) + Math.pow(body.y-pressY, 2));
+                double distance = Math.sqrt(Math.pow(body.x - e.getX(), 2) + Math.pow(body.y - e.getY(), 2));
                 if (distance<=minDist) {
                     minDist = distance;
                     closest = body;
@@ -68,6 +70,7 @@ public class MouseInteraction implements MouseListener {
         } else {
             System.out.println("That does nothing for me.");
         }
+        dragging = false;
     }
 
     @Override
@@ -77,6 +80,37 @@ public class MouseInteraction implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    /**
+     * Invoked when a mouse button is pressed on a component and then
+     * dragged.  {@code MOUSE_DRAGGED} events will continue to be
+     * delivered to the component where the drag originated until the
+     * mouse button is released (regardless of whether the mouse position
+     * is within the bounds of the component).
+     * <p>
+     * Due to platform-dependent Drag&amp;Drop implementations,
+     * {@code MOUSE_DRAGGED} events may not be delivered during a native
+     * Drag&amp;Drop operation.
+     *
+     * @param e the event to be processed
+     */
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        currentX = e.getX();
+        currentY = e.getY();
+        dragging = true;
+    }
+
+    /**
+     * Invoked when the mouse cursor has been moved onto a component
+     * but no buttons have been pushed.
+     *
+     * @param e the event to be processed
+     */
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }

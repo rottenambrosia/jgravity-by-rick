@@ -15,7 +15,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Gravity Simulation");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(800, 600);
+            frame.setSize(1920, 1080);
             frame.setLocationRelativeTo(null);
             SimulationPanel simulationPanel = new SimulationPanel();
             frame.add(simulationPanel);

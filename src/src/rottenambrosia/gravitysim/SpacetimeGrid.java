@@ -1,3 +1,10 @@
+/**
+ * Why pamper life's complexity
+ * When leather runs smooth on the passenger seat?
+ * I would go out tonight, but I haven't got a stitch to wear
+ * This man said, "It's gruesome that someone so handsome should care."
+ */
+
 package rottenambrosia.gravitysim;
 
 import java.awt.*;
@@ -69,7 +76,7 @@ public class SpacetimeGrid {
             for (int j = 0; j < GRID_ROWS; j++) {
                 double warpDepth = warpedY[i][j] - (j*stepY);
 //                int alpha = (int)(60 + warpDepth*1.5);
-                g2.setColor(new Color(30, 120, 255, 50));
+                g2.setColor(new Color(20, 200, 255, 50));
 
                 g2.drawLine((int)(i*stepX), (int)warpedY[i][j],
                         (int)((i+1)*stepX), (int)warpedY[i+1][j]);
@@ -77,5 +84,6 @@ public class SpacetimeGrid {
                         (int)(i*stepX), (int)warpedY[i][j+1]);
             }
         }
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     }
 }
