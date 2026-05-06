@@ -61,7 +61,7 @@ public class SimulationPanel extends JPanel implements ActionListener {
         double starMass = 2e13;
         double sx = 900, sy = 400;
         bodyList.add(new Body(sx, sy, 0, 0, starMass, 25, Color.ORANGE));
-        System.out.println("Orbital speed at r=100: " + Math.sqrt(G * starMass / 100));
+//        System.out.println("Orbital speed at r=100: " + Math.sqrt(G * starMass / 100));
 
         addPlanet(sx, sy, starMass,  55,   0,   1e9,  3,  new Color(169, 169, 169)); // Mercury
         addPlanet(sx, sy, starMass,  85,  40,   2e9,  5,  new Color(255, 198, 100)); // Venus
@@ -145,7 +145,14 @@ public class SimulationPanel extends JPanel implements ActionListener {
      *
      * @param bodies List of objects of class <code>Body</code>
      *               <br>
-     *               Checks for collision using mathematical inferences
+     *  Checks for collision using the idea that for the bodies to be just touching the distance between their
+     *               centres would be equal to the sum of their radii :
+     *         <pre>d = |r_1 + r_2| </pre>
+     *     <br>
+     *               If two bodies touch, they merge their masses and the combined mass and velocity are given by:
+     *               <pre>M = m1 + m2 (Law of conservation of mass)</pre>
+     *               <pre>v = (m1u1 + m2u2)/(m1+m2) (Law of conservation of linear momentum)</pre>
+     *               Hence, the new body is added to {@code bodyList} and the older bodies are discarded.
      */
     public void checkCollision(List<Body> bodies) {
         List<Body> toRemove = new ArrayList<Body>();

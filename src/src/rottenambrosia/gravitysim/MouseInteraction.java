@@ -15,7 +15,6 @@ import java.util.Random;
 import java.util.List;
 import static rottenambrosia.gravitysim.Constants.*;
 
-
 public class MouseInteraction implements MouseListener, MouseMotionListener {
 
     double pressX, pressY, releaseX, releaseY, d_x, d_y, v_x, v_y, currentX, currentY;
@@ -66,9 +65,7 @@ public class MouseInteraction implements MouseListener, MouseMotionListener {
                     colorArray[new Random().nextInt(colorArray.length)]
             );
             bodyList.add(body);
-            System.out.println("Body spawned.");
-        } else {
-            System.out.println("That does nothing for me.");
+//            System.out.println("Body spawned.");
         }
         dragging = false;
     }
