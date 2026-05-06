@@ -70,7 +70,6 @@ public class SpacetimeGrid {
                 double baseX = i * stepX;
                 double baseY = j * stepY;
                 warpedY[i][j] = baseY + computeWarp(baseX, baseY, bodies);
-
             }
         }
         for (int i = 0; i < GRID_COLS; i++) {
@@ -78,7 +77,6 @@ public class SpacetimeGrid {
                 double warpDepth = warpedY[i][j] - (j*stepY);
 //                int alpha = (int)(60 + warpDepth*1.5);
                 g2.setColor(new Color(20, 200, 255, 50));
-
                 g2.drawLine((int)(i*stepX), (int)warpedY[i][j],
                         (int)((i+1)*stepX), (int)warpedY[i+1][j]);
                 g2.drawLine((int)(i*stepX), (int)warpedY[i][j],

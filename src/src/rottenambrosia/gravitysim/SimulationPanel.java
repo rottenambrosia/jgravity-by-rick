@@ -147,7 +147,7 @@ public class SimulationPanel extends JPanel implements ActionListener {
      *               <br>
      *  Checks for collision using the idea that for the bodies to be just touching the distance between their
      *               centres would be equal to the sum of their radii :
-     *         <pre>d = |r_1 + r_2| </pre>
+     *         <pre>dist = |r_1 + r_2| </pre>
      *     <br>
      *               If two bodies touch, they merge their masses and the combined mass and velocity are given by:
      *               <pre>M = m1 + m2 (Law of conservation of mass)</pre>
