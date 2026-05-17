@@ -22,3 +22,5 @@ public class Constants {
     public static double SOFTENING = 10.0;
     public static double dt = 0.5;
 }
+
+

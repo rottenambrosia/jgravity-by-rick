@@ -241,4 +241,3 @@ public class SimulationPanel extends JPanel implements ActionListener {
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
     }
 }
-
