@@ -25,9 +25,6 @@ public class SimulationPanel extends JPanel implements ActionListener {
 
 
     public SimulationPanel() {
-//        bodyList.add(new Body(100, 250, 0.07,  0.02, 4e14, 15, Color.CYAN));
-//        bodyList.add(new Body(150, 450, 0.03,  0.07, 3e14, 15, Color.YELLOW));
-//        bodyList.add(new Body(550, 400, 0.03,  -0.05, 2e14, 15, Color.ORANGE));
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(new KeyAdapter() {
@@ -39,6 +36,7 @@ public class SimulationPanel extends JPanel implements ActionListener {
                     case KeyEvent.VK_C -> bodyList.clear();
                     case KeyEvent.VK_R -> resetScene();
                     case KeyEvent.VK_H -> showHelp = !showHelp;
+                    case KeyEvent.VK_ESCAPE ->  System.exit(0);
                 }
 
             }
@@ -64,9 +62,9 @@ public class SimulationPanel extends JPanel implements ActionListener {
 //        System.out.println("Orbital speed at r=100: " + Math.sqrt(G * starMass / 100));
 
         addPlanet(sx, sy, starMass,  55,   0,   1e9,  3,  new Color(169, 169, 169)); // Mercury
-        addPlanet(sx, sy, starMass,  85,  40,   2e9,  5,  new Color(255, 198, 100)); // Venus
-        addPlanet(sx, sy, starMass, 115,  90,   2e9,  5,  new Color(100, 149, 237)); // Earth
-        addPlanet(sx, sy, starMass, 150, 150,   1e9,  4,  new Color(188,  74,  60)); // Mars
+        addPlanet(sx, sy, starMass,  85,  40,   2e9,  5,  new Color(218, 138, 3, 221)); // Venus
+        addPlanet(sx, sy, starMass, 115,  90,   2e9,  5,  new Color(27, 177, 228)); // Earth
+        addPlanet(sx, sy, starMass, 150, 150,   1e9,  4,  new Color(119, 1, 1)); // Mars
         addPlanet(sx, sy, starMass, 200, 220,   8e9,  9,  new Color(201, 144,  57)); // Jupiter
         addPlanet(sx, sy, starMass, 250, 300,   6e9,  8,  new Color(210, 180, 122)); // Saturn
         addPlanet(sx, sy, starMass, 290, 10,    3e9,  6,  new Color(173, 216, 230)); // Uranus
@@ -195,17 +193,6 @@ public class SimulationPanel extends JPanel implements ActionListener {
         repaint();
     }
 
-    public void drawHUD(Graphics2D g2) {
-        g2.setColor(new Color(57, 97, 128, 206));
-        g2.fillRoundRect(10, 10, 220, 80, 15, 15);
-        g2.setColor(Color.WHITE);
-        int timeElapsed = (int)(frameCount / 60);
-        g2.drawString("Bodies : " + bodyList.size(), 20, 25);
-        g2.drawString("Time   : " + timeElapsed + "s", 20, 45);
-        g2.drawString(paused ? "[PAUSED]" : "[RUNNING]", 20, 65);
-        g2.drawString("[H] to toggle Help", 20, 85);
-        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-    }
 
     @Override
     public void paintComponent(Graphics g) {
@@ -227,6 +214,19 @@ public class SimulationPanel extends JPanel implements ActionListener {
         }
 
     }
+    // HUD and Help UI elements :
+    public void drawHUD(Graphics2D g2) {
+        g2.setColor(new Color(57, 97, 128, 206));
+        g2.fillRoundRect(10, 10, 220, 80, 15, 15);
+        g2.setColor(Color.WHITE);
+        int timeElapsed = (int)(frameCount / 60);
+        g2.drawString("Bodies : " + bodyList.size(), 20, 25);
+        g2.drawString("Time   : " + timeElapsed + "s", 20, 45);
+        g2.drawString(paused ? "[PAUSED]" : "[RUNNING]", 20, 65);
+        g2.drawString("[H] to toggle Help; [ESC] to Quit", 20, 85);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    }
+
     private void drawHelp(Graphics2D g2) {
         g2.setColor(new Color(132, 204, 95, 110));
         g2.fillRoundRect(10, 100, 220, 140, 20, 20);
