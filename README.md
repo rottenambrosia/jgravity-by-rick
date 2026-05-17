@@ -88,10 +88,10 @@ src/
 ### Run
 
 ```bash
-mvn compile exec:java -Dexec.mainClass="rottenambrosia.gravitysim.Main"
+javac <file_name>
 ```
 
-Or open in IntelliJ IDEA and run `Main.java` directly.
+Or open in IntelliJ IDEA or othee IDEs and run `Main.java` directly.
 
 ***
 
