@@ -1,3 +1,10 @@
+/**
+ * No one tried
+ * To read my eyes
+ * No one but you
+ * Wish it weren't true
+ */
+
 package rottenambrosia.gravitysim;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-/**
+/*
  * They tell you, "Read this, eat this, don't look around
  * Just peep this, preach this, teach us, Jesus"
  * Okay, look up now, they done stole yo' streetness
@@ -39,6 +39,12 @@ public class SimulationPanel extends JPanel implements ActionListener {
                     case KeyEvent.VK_ESCAPE ->  System.exit(0);
                 }
 
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                requestFocusInWindow();
             }
         });
         setPreferredSize(new Dimension(1920, 1080));

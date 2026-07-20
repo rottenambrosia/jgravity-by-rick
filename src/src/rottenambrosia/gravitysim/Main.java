@@ -1,4 +1,4 @@
-/**
+/*
  * Take a listen to your spirit
  * It's cryin' out loud
  * Trying to believe
